@@ -35,11 +35,17 @@ public class rePosition : MonoBehaviour
             case "Ground":
                 if (diffX > diffY)
                 {
+                    Vector3 position1 = transform.position;
                     transform.Translate(Vector3.right * xDirection * 40);
+                    Vector3 position2 = transform.position;
+
                 }
                 else if (diffY > diffX)
                 {
+                    Vector3 position1 = transform.position;
                     transform.Translate(Vector3.up * yDirection * 40);
+                    Vector3 position2 = transform.position;
+
                 }
                 break;
             case "Enemy":
