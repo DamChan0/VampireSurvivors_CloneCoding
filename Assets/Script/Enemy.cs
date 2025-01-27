@@ -41,8 +41,6 @@ public class Enemy : MonoBehaviour
     private void LateUpdate()
     {
         enemySprite.flipX = target.position.x < enemyRigid.position.x;
-
-
     }
 
     void OnEnable()
