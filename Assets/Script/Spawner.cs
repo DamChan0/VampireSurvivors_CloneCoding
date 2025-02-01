@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     Transform[] spawnPoint;
     private int level = 0;
-    private float runnigTime = 0;
+    private float runTime = 0;
 
     public EnemyStatus[] enemyStatus;
     private void Awake()
@@ -20,18 +21,37 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        runTime += Time.deltaTime;
+        level = (int)(GameManager.instance.GameTime / 10);
+        if (level > 1)
         {
-            Spawn();
+            level = 1;
         }
 
-        runnigTime += Time.deltaTime;
+        if (level == 0)
+        {
+            if (runTime > 0.8f)
+            {
+                runTime = 0;
+                Spawn(level);
+            }
+        }
+        else
+        {
+            if (runTime > 0.8f - level * 0.1f)
+            {
+                runTime = 0;
+                Spawn(level);
+            }
+        }
+
+
 
     }
 
-    void Spawn()
+    void Spawn(int level)
     {
-        Int32 random = UnityEngine.Random.Range(0, 2);
+        Int32 random = UnityEngine.Random.Range(0, level + 1);
         GameObject spawnedObject = GameManager.instance.poolManager.GetGameObject(random);
         // 현재 각 풀에는 1개의 오브젝트만 들어가 있음
         // 따라서 풀의 종류에따라 다른 오브젝트가 생성됨

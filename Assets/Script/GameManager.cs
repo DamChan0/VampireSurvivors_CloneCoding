@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public Player player;
     public static GameManager instance;
+    public float GameTime;
+    public float MaxGameTime = 60 * 2;
 
     public PoolManager poolManager;
     // Update is called once per frame
@@ -31,6 +33,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        GameTime += Time.deltaTime;
+        if (GameTime > MaxGameTime)
+        {
+            GameTime = MaxGameTime;
+        }
 
     }
 }
